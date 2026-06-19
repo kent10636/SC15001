@@ -1,0 +1,36 @@
+# Android
+*.iml
+.gradle/
+local.properties
+.idea/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aar
+*.so
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+go.work
+go.work.sum
+
+# LiveKit / Dev
+livekit.yaml
+.env
+.env.*
+
+# General
+.DS_Store
+*.log
+*.tmp
+node_modules/
+
+# Reference (optional - keep or ignore .git inside reference)
+reference/sc15001-legacy/.git/

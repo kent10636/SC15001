@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: walkie
+      POSTGRES_PASSWORD: walkie_dev
+      POSTGRES_DB: walkie
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U walkie"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880"   # HTTP / WebSocket
+      - "7881:7881"   # TCP
+      - "7882:7882/udp" # UDP
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml
+    environment:
+      - LIVEKIT_API_KEY=devkey
+      - LIVEKIT_API_SECRET=secret
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
